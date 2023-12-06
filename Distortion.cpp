@@ -12,18 +12,18 @@ offset(0.0),
 gain(1.0){}
 
 void Distortion::setDrive(float drive) {
-  drive = d;
+  this->drive = drive;
 }
 
 void Distortion::setOffset(float offset) {
-  offset = o;
+  this->offset = offset;
 }
 
 void Distortion::setGain(float gain) {
-  gain = g;
+  this->gain = gain;
 }
 
-void Distortion::algorithm(float x) {
+float Distortion::algorithm(float x) {
   return sgn(x) * (1 - exp(-abs(x))); //   x / abs(x) * (1 - exp(-(x*x)/abs(x)));
 }
 
