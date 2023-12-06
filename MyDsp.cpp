@@ -1,4 +1,6 @@
 #include "MyDsp.h"
+#include "Distortion.h"
+#include "BiQuad.h"
 
 #define AUDIO_OUTPUTS 1
 

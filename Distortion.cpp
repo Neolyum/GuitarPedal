@@ -24,7 +24,7 @@ void Distortion::setGain(float gain) {
 }
 
 void Distortion::algorithm(float x) {
-  return sgn(x) * (1 - exp(-abs(x))); //x / abs(x) * (1 - exp(-(x*x)/abs(x)));
+  return sgn(x) * (1 - exp(-abs(x))); //   x / abs(x) * (1 - exp(-(x*x)/abs(x)));
 }
 
 float Distortion::tick(float input){
