@@ -4,6 +4,7 @@
 #include "Arduino.h"
 #include "AudioStream.h"
 #include "Audio.h"
+#include "Distortion.h"
 
 
 class MyDsp : public AudioStream
@@ -15,7 +16,7 @@ class MyDsp : public AudioStream
     virtual void update(void);
     
   private:
-
+    Distortion distortion;
 };
 
 #endif

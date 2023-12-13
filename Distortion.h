@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Arduino.h"
 
 class Distortion{
 public:
@@ -13,4 +13,5 @@ public:
 private:
   float algorithm(float x);
   float drive, offset, gain;
+
 };
