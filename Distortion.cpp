@@ -7,7 +7,7 @@ template <typename T> int sgn(T val) {
 }
 
 Distortion::Distortion() : 
-drive(0.0),
+drive(0.3),
 offset(0.0),
 gain(1.0){}
 
@@ -28,8 +28,6 @@ float Distortion::algorithm(float x) {
 }
 
 float Distortion::tick(float input){
-  Serial.println("hi");
-
   float output = input * pow(10.0, 2 * drive) + offset;
   output = fmax(-1, fmin(1, output));
   output = algorithm(output);
