@@ -1,7 +1,6 @@
 #include "MyDsp.h"
 #include "MyDistortion.h"
-#include "BiQuad.h"
-
+#include "MyTremolo.h"
 
 #define MULT_16 32767
 #define DIV_16 0.0000305185
@@ -34,6 +33,10 @@ void MyDsp::update() {
             break;
           case EchoEffect:
             currentSample = echo.tick(currentSample);
+            break;
+          case TremoloEffect:
+            currentSample = myTremolo.tick(currentSample);
+            break;
           case NoEffect:
           default:
             break;

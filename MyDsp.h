@@ -6,6 +6,7 @@
 #include "Audio.h"
 #include "MyDistortion.h"
 #include "MyEcho.h"
+#include "MyTremolo.h"
 
 #define AUDIO_CHANNELS 2
 
@@ -21,22 +22,24 @@ class MyDsp : public AudioStream
   private:
     MyDistortion myDistortion;
     MyEcho echo = MyEcho(44100); // MAgic number yay
-
+    MyTremolo myTremolo = MyTremolo(44100);
 
     enum Effect {
       NoEffect,
       DistortionEffect,
       EchoEffect,
+      TremoloEffect,
       COUNT // has to be last
     };
 
 
     Effect currentEffect;
 
-    const char* EffectNames[3] = {
+    const char* EffectNames[4] = {
       "NoEffect",
       "DistortionEffect",
-      "EchoEffect"
+      "EchoEffect",
+      "TremoloEffect"
     };
 };
 
