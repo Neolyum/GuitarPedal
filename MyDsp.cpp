@@ -37,15 +37,27 @@ void MyDsp::update() {
           case TremoloEffect:
             currentSample = myTremolo.tick(currentSample);
             break;
+
+          case ChorusEffect: // has to be blockwise, so is done after. Sorry for the code quality :(
           case NoEffect:
           default:
             break;
         }
+
         //currentSample = MyDistortion.tick(currentSample);  //0;//echo.tick(sawtoothSynth() + firstSynth() + secondSynth() + vibratoSynth()) *0.4; // TODO: get mic input as current sample
         currentSample = max(-1,min(1,currentSample));
         int16_t val = currentSample * MULT_16;
         outBlock[channel]->data[i] = val;
       }
+
+      if (currentEffect == ChorusEffect) {
+        int count = 0;
+          for (float i : chorus.tick(inBlock[channel])->data) {
+            count++;
+            outBlock[channel]->data[count] = i;
+          }
+      }
+
       if (inBlock[channel]) release(inBlock[channel]);
       transmit(outBlock[channel], channel);
       release(outBlock[channel]);
