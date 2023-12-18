@@ -14,14 +14,11 @@ AudioConnection patchCord4(in,1,myDsp,1);
 
 void setup() {
   Serial.begin(9600);
-  Serial.println("begin!");
   AudioMemory(16);
   audioShield.enable();
-    Serial.println("2");
   audioShield.volume(0.5);
   audioShield.inputSelect(AUDIO_INPUT_MIC);
-  audioShield.micGain(36);
-      Serial.println("3");
+  audioShield.micGain(3);
   delay(1000);
 }
 
@@ -32,8 +29,8 @@ void loop() {
   bool read = digitalRead(0);
   if (read != lastPosition && (lastPosition == false)) {
     lastPosition = !lastPosition;
-    myDsp.toggleEffect();
-    Serial.println("Toggled effect!");
+    Serial.printf("Toggled effect to \"%s\"\n", myDsp.toggleEffect());
+
   }
   if (!read) lastPosition = false;
 

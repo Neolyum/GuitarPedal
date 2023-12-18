@@ -4,7 +4,8 @@
 #include "Arduino.h"
 #include "AudioStream.h"
 #include "Audio.h"
-#include "Distortion.h"
+#include "MyDistortion.h"
+#include "MyEcho.h"
 
 #define AUDIO_CHANNELS 2
 
@@ -15,16 +16,28 @@ class MyDsp : public AudioStream
     ~MyDsp();
     
     virtual void update(void);
-    void toggleEffect();
+    const char* toggleEffect();
     
   private:
-    Distortion distortion;
+    MyDistortion myDistortion;
+    MyEcho echo = MyEcho(44100); // MAgic number yay
+
+
     enum Effect {
+      NoEffect,
       DistortionEffect,
-      ChorusEffect,
+      EchoEffect,
       COUNT // has to be last
     };
+
+
     Effect currentEffect;
+
+    const char* EffectNames[3] = {
+      "NoEffect",
+      "DistortionEffect",
+      "EchoEffect"
+    };
 };
 
 #endif

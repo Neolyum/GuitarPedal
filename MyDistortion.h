@@ -2,9 +2,9 @@
 #include "Arduino.h"
 #include "Effect.h"
 
-class Distortion : Effect {
+class MyDistortion : Effect {
 public:
-  Distortion();
+  MyDistortion();
   
   void setDrive(float drive);
   void setOffset(float offset);

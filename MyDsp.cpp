@@ -1,5 +1,5 @@
 #include "MyDsp.h"
-#include "Distortion.h"
+#include "MyDistortion.h"
 #include "BiQuad.h"
 
 
@@ -11,9 +11,10 @@ AudioStream(AUDIO_CHANNELS, new audio_block_t*[AUDIO_CHANNELS]) {Serial.println(
 
 MyDsp::~MyDsp(){}
 
-void MyDsp::toggleEffect() {
+const char* MyDsp::toggleEffect() {
   // sets the next effect in the List. The count is used to fall back to the first effect after the last one
   currentEffect = static_cast<Effect>((currentEffect + 1) % COUNT);
+  return EffectNames[currentEffect];
 }
 
 void MyDsp::update() {
@@ -29,15 +30,17 @@ void MyDsp::update() {
 
         switch (currentEffect) {
           case DistortionEffect:
-            currentSample = distortion.tick(currentSample); 
+            currentSample = myDistortion.tick(currentSample); 
             break;
-          case ChorusEffect:
+          case EchoEffect:
+            currentSample = echo.tick(currentSample);
+          case NoEffect:
           default:
             break;
         }
-        //currentSample = distortion.tick(currentSample);  //0;//echo.tick(sawtoothSynth() + firstSynth() + secondSynth() + vibratoSynth()) *0.4; // TODO: get mic input as current sample
+        //currentSample = MyDistortion.tick(currentSample);  //0;//echo.tick(sawtoothSynth() + firstSynth() + secondSynth() + vibratoSynth()) *0.4; // TODO: get mic input as current sample
         currentSample = max(-1,min(1,currentSample));
-        int16_t val = currentSample*MULT_16;
+        int16_t val = currentSample * MULT_16;
         outBlock[channel]->data[i] = val;
       }
       if (inBlock[channel]) release(inBlock[channel]);
